@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import * as actions from '../actions';
 
 class AuthScreen extends Component {
   onEmailChange = (text) => {
@@ -58,7 +58,7 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(AuthScreen);
+export default connect(mapStateToProps, actions)(AuthScreen);
 
 const styles = StyleSheet.create({
   screen: {
