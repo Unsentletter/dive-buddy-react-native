@@ -1,29 +1,7 @@
 import React, { Component} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity
-} from 'react-native';
-import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { View, Text } from 'react-native';
 
 class AuthScreen extends Component {
-  onEmailChange = (text) => {
-    this.props.emailChanged(text);
-  };
-
-  onPasswordChange = (text) => {
-    this.props.passwordChanged(text);
-  };
-
-  onButtonPress = () => {
-    const { email, password } = this.props;
-
-    this.props.loginUser({ email, password })
-  };
-
   render() {
     return (
       <View style={styles.screen}>
@@ -51,35 +29,4 @@ class AuthScreen extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    email: state.auth.email,
-    password: state.auth.password
-  }
-};
-
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(AuthScreen);
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  button: {
-    backgroundColor: 'blue',
-    color: '#fff',
-    height: 30,
-    lineHeight: 30,
-    marginTop: 10,
-    textAlign: 'center',
-    width: 250
-  },
-  input: {
-    borderColor: 'black',
-    borderWidth: 1,
-    height: 37,
-    width: 250
-  }
-});
+export default AuthScreen;
