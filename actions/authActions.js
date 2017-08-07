@@ -26,6 +26,8 @@ export const passwordChanged = (text) => {
 export const loginUser = ({ email, password }) => async dispatch => {
   let token = await AsyncStorage.getItem('localToken');
 
+  // AsyncStorage.removeItem('localToken')
+
   if (token) {
     dispatch({ type: LOGIN_USER_SUCCESS, payload: token})
   } else {
@@ -41,9 +43,8 @@ const doLoginUser = async (dispatch, { email, password }) => {
 
   console.log('token', token.headers['x-auth']);
 
-  await AsyncStorage.setItem('localToken', token);
+  await AsyncStorage.setItem('localToken', token.headers['x-auth']);
   dispatch({ type: LOGIN_USER_SUCCESS, payload: token});
-  console.log('storage', AsyncStorage);
 };
 
 

@@ -10,6 +10,20 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class AuthScreen extends Component {
+  componentDidMount() {
+    this.onAuthComplete(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.onAuthComplete(nextProps)
+  }
+
+  onAuthComplete(props) {
+    if (props.token) {
+      this.props.navigation.navigate('profile');
+    }
+  }
+
   onEmailChange = (text) => {
     this.props.emailChanged(text);
   };
@@ -54,7 +68,8 @@ class AuthScreen extends Component {
 const mapStateToProps = state => {
   return {
     email: state.auth.email,
-    password: state.auth.password
+    password: state.auth.password,
+    token: state.auth.token
   }
 };
 
