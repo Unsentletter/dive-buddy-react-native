@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER_SUCCESS:
       return { token: action.payload};
     case LOGOUT_USER_SUCCESS:
-      return {token: action.payload};
+      return {token: null};
     default:
       return state;
   }

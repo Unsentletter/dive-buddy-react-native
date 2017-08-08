@@ -3,18 +3,18 @@ import {
   View,
   Text,
   TextInput,
-  StyleSheet,
-  AsyncStorage
+  StyleSheet
 } from 'react-native';
 import {
   Button
 } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import * as actions from '../actions';
 
 class AuthScreen extends Component {
   componentDidMount() {
     this.onAuthComplete(this.props)
+    console.log(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,6 +22,8 @@ class AuthScreen extends Component {
   }
 
   onAuthComplete(props) {
+    console.log('tokennn', props);
+
     if (props.token) {
       this.props.navigation.navigate('setupProfile')
     }
@@ -82,7 +84,7 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(AuthScreen);
+export default connect(mapStateToProps, actions)(AuthScreen);
 
 const styles = StyleSheet.create({
   screen: {

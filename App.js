@@ -16,7 +16,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 export default class App extends React.Component {
   render() {
     const MainNavigator = TabNavigator({
-     // welcome: { screen: WelcomeScreen },
+     welcome: { screen: WelcomeScreen },
       auth: { screen: AuthScreen },
       main: {
         screen: TabNavigator({
@@ -40,7 +40,7 @@ export default class App extends React.Component {
 
     return (
       <Provider store={ store }>
-        <View style={styles.container}>
+        <View style={ styles.container }>
           <MainNavigator />
         </View>
       </Provider>

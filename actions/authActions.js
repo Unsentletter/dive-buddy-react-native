@@ -43,15 +43,17 @@ const doLoginUser = async (dispatch, { email, password }) => {
   });
 
   await AsyncStorage.setItem('localToken', token.headers['x-auth']);
-  dispatch({ type: LOGIN_USER_SUCCESS, payload: token});
+  dispatch({ type: LOGIN_USER_SUCCESS, payload: token });
 };
 
-export const logoutUser = async(token) => {
-  console.log('token', token);
-  await axios.post(`${url}/user/loggedIn/deleteUser`, token);
+export const logoutUser = (token) => async dispatch => {
+  await axios.delete({
+    method:'delete',
+    url:`https://safe-beyond-53212.herokuapp.com/v1/user/loggedIn/deleteUser`,
+    headers: {'x-auth': token}
+  });
 
-  AsyncStorage.removeItem('localToken');
-  console.log('logged out');
+  await AsyncStorage.removeItem('localToken');
   dispatch({ type: LOGOUT_USER_SUCCESS })
 };
 
