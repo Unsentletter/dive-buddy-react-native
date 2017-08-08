@@ -6,8 +6,11 @@ import { SIGNIN_URL } from '../api';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
-  LOGIN_USER_SUCCESS
+  LOGIN_USER_SUCCESS,
+  LOGOUT_USER_SUCCESS
 } from "./types"
+
+const url = 'https://safe-beyond-53212.herokuapp.com/v1';
 
 export const emailChanged = (text) => {
   return {
@@ -26,8 +29,6 @@ export const passwordChanged = (text) => {
 export const loginUser = ({ email, password }) => async dispatch => {
   let token = await AsyncStorage.getItem('localToken');
 
-  // AsyncStorage.removeItem('localToken')
-
   if (token) {
     dispatch({ type: LOGIN_USER_SUCCESS, payload: token})
   } else {
@@ -36,15 +37,21 @@ export const loginUser = ({ email, password }) => async dispatch => {
 };
 
 const doLoginUser = async (dispatch, { email, password }) => {
-  let token = await axios.post('https://safe-beyond-53212.herokuapp.com/v1/user/signup', {
+  let token = await axios.post(`${url}/user/signup`, {
     email,
     password
   });
-
-  console.log('token', token.headers['x-auth']);
 
   await AsyncStorage.setItem('localToken', token.headers['x-auth']);
   dispatch({ type: LOGIN_USER_SUCCESS, payload: token});
 };
 
+export const logoutUser = async(token) => {
+  console.log('token', token);
+  await axios.post(`${url}/user/loggedIn/deleteUser`, token);
+
+  AsyncStorage.removeItem('localToken');
+  console.log('logged out');
+  dispatch({ type: LOGOUT_USER_SUCCESS })
+};
 

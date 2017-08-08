@@ -4,8 +4,11 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  TouchableOpacity
+  AsyncStorage
 } from 'react-native';
+import {
+  Button
+} from 'react-native-elements';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 
@@ -47,6 +50,8 @@ class AuthScreen extends Component {
           value={this.props.email}
           onChangeText={this.onEmailChange}
           style={styles.input}
+          autoCorrect= {false}
+          keyboardType={'email-address'}
         />
         <Text>Password</Text>
         <TextInput
@@ -55,11 +60,15 @@ class AuthScreen extends Component {
           onChangeText={this.onPasswordChange}
           style={styles.input}
         />
-        <TouchableOpacity onPress={this.onButtonPress}>
-          <Text style={styles.button}>
-            Log In
-          </Text>
-        </TouchableOpacity>
+        <Button
+          onPress={this.onButtonPress}
+          raised
+          title="Log In"
+          backgroundColor="blue"
+         />
+        <Button
+          title="Sign Up"
+        />
       </View>
     )
   }
